@@ -1,7 +1,7 @@
 import telebot.types
 
 
-def start_dialogue(message: telebot.types.Message):
+def start_dialogue_text(message: telebot.types.Message):
 	text = """
 	👋 Привет, это бот для отслеживания товаров на WILDBERRIES!
 	
@@ -16,4 +16,14 @@ def start_dialogue(message: telebot.types.Message):
 	— Готово! Вы получите уведомление, когда цена на товар будет снижена или он появится в наличии
 	"""
 
+	return text
+
+
+def ask_product_item_text(message: telebot.types.Message):
+	text = "Введите артикул товарa"
+	return text
+
+
+def incorrect_start_action_text(message: telebot.types.Message):
+	text = "Выберите действие из указанных на клавиатуре"
 	return text
