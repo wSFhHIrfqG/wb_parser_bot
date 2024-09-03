@@ -38,4 +38,43 @@ class WBProduct:
 		pass
 
 	def product_image_url(self) -> str:
-		pass
+		vol = self.product_item // 100_000
+		part = self.product_item // 1000
+
+		if 0 <= vol <= 143:
+			basket = '01'
+		elif vol <= 287:
+			basket = '02'
+		elif vol <= 431:
+			basket = '03'
+		elif vol <= 719:
+			basket = '04'
+		elif vol <= 1007:
+			basket = '05'
+		elif vol <= 1061:
+			basket = '06'
+		elif vol <= 1115:
+			basket = '07'
+		elif vol <= 1169:
+			basket = '08'
+		elif vol <= 1313:
+			basket = '09'
+		elif vol <= 1601:
+			basket = '10'
+		elif vol <= 1655:
+			basket = '11'
+		elif vol <= 1919:
+			basket = '12'
+		elif vol <= 2045:
+			basket = '13'
+		elif vol <= 2189:
+			basket = '14'
+		elif vol <= 2405:
+			basket = '15'
+		elif vol <= 2621:
+			basket = '16'
+		else:
+			basket = '17'
+
+		src = f'https://basket-{basket}.wbbasket.ru/vol{vol}/part{part}/{self.product_item}/images/big/1.webp'
+		return src
