@@ -11,7 +11,7 @@ def start(message: telebot.types.Message):
 	bot.set_state(message.chat.id, UserStates.start)
 	bot.send_message(
 		message.chat.id,
-		messages.dialogue.start_dialogue(message),
+		messages.dialogue.start_dialogue_text(message),
 		reply_markup=keyboards.reply.start_menu.start_menu_markup(),
 		parse_mode='html'
 	)

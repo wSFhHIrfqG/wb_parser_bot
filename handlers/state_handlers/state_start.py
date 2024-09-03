@@ -3,6 +3,7 @@ import telebot.types
 from loader import bot
 from states.user_states import UserStates
 import messages
+import keyboards
 
 
 @bot.message_handler(state=UserStates.start)
@@ -18,5 +19,5 @@ def keyboard_button_clicked(message: telebot.types.Message):
 		bot.send_message(
 			message.chat.id,
 			messages.dialogue.incorrect_start_action_text(message),
-			reply_markup=telebot.types.ReplyKeyboardRemove()
+			reply_markup=keyboards.reply.start_menu.start_menu_markup()
 		)
