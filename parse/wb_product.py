@@ -1,5 +1,7 @@
 import requests
 
+import models
+
 
 class WBProduct:
 
@@ -35,7 +37,16 @@ class WBProduct:
 		return requests.get('https://card.wb.ru/cards/v2/detail', params=params, headers=headers)
 
 	def product_data(self) -> dict | None:
-		pass
+		response = self.__get_response()
+
+		json_data = response.json()
+
+		products = json_data.get('data').get('products')
+
+		product_data = models.Product(**products[0]).dict()
+		product_data['image'] = self.product_image_url()
+
+		return product_data
 
 	def product_image_url(self) -> str:
 		vol = self.product_item // 100_000
