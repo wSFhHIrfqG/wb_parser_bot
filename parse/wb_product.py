@@ -1,6 +1,7 @@
 import requests
 
 import models
+import exceptions
 
 
 class WBProduct:
@@ -42,6 +43,8 @@ class WBProduct:
 		json_data = response.json()
 
 		products = json_data.get('data').get('products')
+		if not products:  # Товар с данным артикулом не найден
+			raise exceptions.ProductNotExistsError(self.product_item)
 
 		product_data = models.Product(**products[0]).dict()
 		product_data['image'] = self.product_image_url()
