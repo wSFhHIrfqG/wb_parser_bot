@@ -1,7 +1,7 @@
 import requests
 
-import models
-import exceptions
+from . import models
+from . import exceptions
 
 
 class WBProduct:
