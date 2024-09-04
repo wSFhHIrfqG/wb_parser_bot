@@ -27,3 +27,8 @@ def ask_product_item_text(message: telebot.types.Message):
 def incorrect_start_action_text(message: telebot.types.Message):
 	text = "Выберите действие из указанных на клавиатуре"
 	return text
+
+
+def product_not_found_text(message: telebot.types.Message):
+	text = f'Товар с артикулом {message.text} не найден'
+	return text

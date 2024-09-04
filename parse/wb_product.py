@@ -11,7 +11,7 @@ class WBProduct:
 			raise TypeError('product item must be int, not %s', type(product_item).__name__)
 		self.product_item = product_item
 
-	def __get_response(self) -> requests.Response:
+	def _get_response(self) -> requests.Response:
 		headers = {
 			'Accept': '*/*',
 			'Accept-Language': 'ru-RU,ru;q=0.9,en-US;q=0.8,en;q=0.7',
@@ -38,7 +38,7 @@ class WBProduct:
 		return requests.get('https://card.wb.ru/cards/v2/detail', params=params, headers=headers)
 
 	def product_data(self) -> dict | None:
-		response = self.__get_response()
+		response = self._get_response()
 
 		json_data = response.json()
 
@@ -47,11 +47,11 @@ class WBProduct:
 			raise exceptions.ProductNotExistsError(self.product_item)
 
 		product_data = models.Product(**products[0]).dict()
-		product_data['image'] = self.product_image_url()
+		product_data['image'] = self._product_image_url()
 
 		return product_data
 
-	def product_image_url(self) -> str:
+	def _product_image_url(self) -> str:
 		vol = self.product_item // 100_000
 		part = self.product_item // 1000
 
