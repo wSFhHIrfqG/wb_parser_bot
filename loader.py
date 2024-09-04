@@ -8,3 +8,4 @@ state_storage = StateMemoryStorage()
 bot = TeleBot(config.TOKEN, state_storage=state_storage)
 
 bot.add_custom_filter(custom_filters.StateFilter(bot))
+bot.add_custom_filter(custom_filters.IsDigitFilter())
