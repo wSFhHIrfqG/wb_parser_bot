@@ -2,6 +2,7 @@ import telebot.types
 
 from loader import bot
 from states.user_states import UserStates
+import database
 import messages
 
 
@@ -24,4 +25,16 @@ def add_product(call: telebot.types.CallbackQuery):
 		call.message.chat.id,
 		call.message.message_id,
 		parse_mode='html',
+	)
+
+	total_price = None
+	for size in product_data.get('sizes'):
+		if size.get('name') == size_name:
+			price_info = size.get('price', {})
+			if price_info:
+				total_price = price_info.get('total')
+			break
+
+	database.edit.add_product(
+		chat_id=call.message.chat.id, product_item=product_item, size_name=size_name, price=total_price
 	)

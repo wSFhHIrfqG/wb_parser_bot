@@ -18,3 +18,21 @@ def create_table_product():
 	connection.commit()
 	cursor.close()
 	connection.close()
+
+
+def add_product(chat_id: int, product_item: int, size_name: str, price: int):
+	connection = sqlite3.connect('bot.sql')
+	cursor = connection.cursor()
+
+	cursor.execute(
+		"""
+		INSERT INTO product
+		(chat_id, product_item, size, price)
+		VALUES
+		(?, ?, ?, ?);
+		""",
+		(chat_id, product_item, size_name, price,)
+	)
+	connection.commit()
+	cursor.close()
+	connection.close()
