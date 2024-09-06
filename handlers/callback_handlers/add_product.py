@@ -4,6 +4,7 @@ from loader import bot
 from states.user_states import UserStates
 import database
 import messages
+import keyboards
 
 
 @bot.callback_query_handler(func=lambda call: call.data.startswith('add_product'))
@@ -37,4 +38,11 @@ def add_product(call: telebot.types.CallbackQuery):
 
 	database.edit.add_product(
 		chat_id=call.message.chat.id, product_item=product_item, size_name=size_name, price=total_price
+	)
+
+	bot.reply_to(
+		call.message,
+		messages.dialogue.product_added_text(call.message),
+		reply_markup=keyboards.reply.start_menu.start_menu_markup(),
+		parse_mode='html'
 	)
