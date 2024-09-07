@@ -5,6 +5,7 @@ from loader import bot
 import parse
 import database
 import messages
+from utils.get_price import get_price
 
 
 class PriceChecker(Thread):
@@ -20,11 +21,10 @@ class PriceChecker(Thread):
 			product = parse.wb_product.WBProduct(product_item)
 			product_data = product.product_data()
 
-			actual_price = None
-			for size in product_data.get('sizes'):
-				if size.get('name') == size_name:
-					actual_price = size.get('price', {}).get('total')
-					break
+			actual_price = get_price(
+				product_data.get('sizes'),
+				size_name
+			)
 
 			product_card = messages.product_card.ProductCard(
 				product_item=product_item, product_data=product_data, size_name=size_name
