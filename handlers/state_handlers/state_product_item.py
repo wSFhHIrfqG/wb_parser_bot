@@ -2,9 +2,8 @@ import telebot.types
 
 from loader import bot
 from states.user_states import UserStates
-import parse.wb_product
-import parse.models
-import parse.exceptions
+import parse
+from parse import exceptions
 import messages
 
 
