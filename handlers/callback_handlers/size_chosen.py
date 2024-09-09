@@ -10,14 +10,14 @@ def size(call):
 	with bot.retrieve_data(call.message.chat.id) as data:
 		product_data = data[product_item]
 
-	product_card = messages.product_card.ProductCard(
-		product_item=product_item, product_data=product_data, size_name=size_name
-	)
+		product_card = messages.product_card.ProductCard(
+			product_item=product_item, product_data=product_data, size_name=size_name
+		)
 
-	bot.edit_message_caption(
-		product_card.caption(),
-		call.message.chat.id,
-		message_id=call.message.message_id,
-		parse_mode='html',
-		reply_markup=product_card.markup()
-	)
+		bot.edit_message_caption(
+			product_card.caption(),
+			call.message.chat.id,
+			message_id=call.message.message_id,
+			parse_mode='html',
+			reply_markup=product_card.markup()
+		)
