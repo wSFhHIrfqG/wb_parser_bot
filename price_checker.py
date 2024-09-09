@@ -31,20 +31,24 @@ class PriceChecker(Thread):
 			)
 
 			if self.product_stocked(old_price, actual_price):  # Товар появился в наличии
-				msg = bot.send_message(
+				msg = bot.send_photo(
 					chat_id,
+					product_card.image_link,
 					product_card.caption(),
-					parse_mode='html'
+					parse_mode='html',
+					reply_markup=product_card.markup()
 				)
 				bot.reply_to(
 					msg,
 					'🛒 Товар появился в наличии!'
 				)
 			elif self.price_decrease(old_price, actual_price):  # Цена на товар снизилась
-				msg = bot.send_message(
+				msg = bot.send_photo(
 					chat_id,
+					product_card.image_link,
 					product_card.caption(),
-					parse_mode='html'
+					parse_mode='html',
+					reply_markup=product_card.markup()
 				)
 				bot.reply_to(
 					msg,

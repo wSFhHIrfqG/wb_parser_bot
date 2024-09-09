@@ -23,7 +23,6 @@ def create_table_product():
 def add_product(chat_id: int, product_item: int, size_name: str, price: int):
 	connection = sqlite3.connect('bot.sql')
 	cursor = connection.cursor()
-
 	cursor.execute(
 		"""
 		INSERT INTO product
