@@ -18,7 +18,11 @@ def get_product_info(message: telebot.types.Message):
 		try:
 			product_data = product.product_data()
 		except parse.exceptions.ProductNotExistsError:
-			messages.dialogue.product_not_found_text(message)
+			bot.send_message(
+				message.chat.id,
+				messages.dialogue.product_not_found_text(message),
+				parse_mode='html'
+			)
 			return
 		data[product_item] = product_data
 
