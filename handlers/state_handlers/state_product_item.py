@@ -44,3 +44,12 @@ def get_product_info(message: telebot.types.Message):
 			parse_mode='html',
 			reply_markup=product_card.markup()
 		)
+
+
+@bot.message_handler(state=UserStates.product_item, is_digit=False)
+def incorrect_product_item(message: telebot.types.Message):
+	bot.send_message(
+		message.chat.id,
+		messages.dialogue.incorrect_product_item_text(message),
+		parse_mode='html'
+	)

@@ -37,3 +37,8 @@ def product_not_found_text(message: telebot.types.Message):
 def product_added_text(message: telebot.types.Message):
 	text = '✅ Товар добавлен в список отслеживания!'
 	return text
+
+
+def incorrect_product_item_text(message: telebot.types.Message):
+	text = 'Введите артикул товара без дополнительных символов'
+	return text
