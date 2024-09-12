@@ -7,7 +7,13 @@ import keyboards
 
 
 @bot.message_handler(commands=['start'])
-def start(message: telebot.types.Message):
+def start(message: telebot.types.Message) -> None:
+	"""
+	Обработать ввод пользователем команды start.
+
+	:param message: Сообщение
+	:return: None
+	"""
 	bot.set_state(message.chat.id, UserStates.start)
 	bot.send_message(
 		message.chat.id,

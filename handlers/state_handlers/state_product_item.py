@@ -8,13 +8,21 @@ import messages
 
 
 @bot.message_handler(state=UserStates.product_item, is_digit=True)
-def get_product_info(message: telebot.types.Message):
+def get_product_info(message: telebot.types.Message) -> None:
+	"""
+	Получен артикул товара.
+
+	:param message: Сообщение
+	:return: None
+	"""
 	bot.set_state(message.chat.id, UserStates.start)
 
 	product_item = int(message.text)
-	product = parse.wb_product.WBProduct(product_item)
 
 	with bot.retrieve_data(message.from_user.id) as data:
+		product = parse.wb_product.WBProduct(product_item)
+
+		# Получаем данные товара
 		try:
 			product_data = product.product_data()
 		except parse.exceptions.ProductNotExistsError:
@@ -24,10 +32,12 @@ def get_product_info(message: telebot.types.Message):
 				parse_mode='html'
 			)
 			return
+
+		# Сохраняем данные в retrieve data
 		data[product_item] = product_data
 
+		# Создаем карточку товара
 		sizes = product_data.get('sizes')
-
 		if len(sizes) == 1:  # У товара только один размер
 			product_card = messages.product_card.ProductCard(
 				product_item=product_item, product_data=product_data, size_name=''
@@ -37,6 +47,7 @@ def get_product_info(message: telebot.types.Message):
 				product_item=product_item, product_data=product_data,
 			)
 
+		# Отправляем карточку товара
 		bot.send_photo(
 			message.chat.id,
 			product_card.image_link,
@@ -47,7 +58,13 @@ def get_product_info(message: telebot.types.Message):
 
 
 @bot.message_handler(state=UserStates.product_item, is_digit=False)
-def incorrect_product_item(message: telebot.types.Message):
+def incorrect_product_item(message: telebot.types.Message) -> None:
+	"""
+	Артикул товара введен некорректно.
+
+	:param message: Сообщение
+	:return: None
+	"""
 	bot.send_message(
 		message.chat.id,
 		messages.dialogue.incorrect_product_item_text(message),

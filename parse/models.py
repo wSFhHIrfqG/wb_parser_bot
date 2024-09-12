@@ -2,8 +2,8 @@ from pydantic import BaseModel, Field, field_validator
 
 
 class PriceBlock(BaseModel):
-	basic: int = None
-	total: int = None
+	basic: int = None  # Цена без скидки
+	total: int = None  # Итоговая цена
 
 	@field_validator('basic')
 	@classmethod
@@ -18,7 +18,7 @@ class PriceBlock(BaseModel):
 
 class SizeBlock(BaseModel):
 	name: str = Field(alias='origName')
-	price: PriceBlock = None
+	price: PriceBlock = None  # Цена размера
 
 
 class Product(BaseModel):
@@ -26,4 +26,4 @@ class Product(BaseModel):
 	brand: str
 	rating: float = Field(alias='reviewRating')
 	feedbacks: int
-	sizes: list[SizeBlock]
+	sizes: list[SizeBlock]  # Все размеры

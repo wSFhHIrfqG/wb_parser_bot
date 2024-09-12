@@ -7,7 +7,13 @@ import keyboards
 
 
 @bot.message_handler(state=UserStates.start)
-def keyboard_button_clicked(message: telebot.types.Message):
+def keyboard_button_clicked(message: telebot.types.Message) -> None:
+	"""
+	Обработать выбранное пользователем начальное действие.
+
+	:param message: Сообщение
+	:return: None
+	"""
 	if message.text == 'Поиск товара 🔍':
 		bot.set_state(message.chat.id, UserStates.product_item)
 		bot.send_message(

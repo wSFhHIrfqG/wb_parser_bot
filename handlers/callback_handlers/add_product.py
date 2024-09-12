@@ -9,8 +9,15 @@ from utils.get_price import get_price
 
 
 @bot.callback_query_handler(func=lambda call: call.data.startswith('add_product'))
-def add_product(call: telebot.types.CallbackQuery):
+def add_product(call: telebot.types.CallbackQuery) -> None:
+	"""
+	Обработать нажатие кнопки "добавить товар".
+
+	:param call: Отклик клавиатуры
+	:return: None
+	"""
 	bot.set_state(call.message.chat.id, UserStates.start)
+
 	product_item = int(call.data.split(':')[1])
 	size_name = call.data.split(':')[2]
 
@@ -28,6 +35,7 @@ def add_product(call: telebot.types.CallbackQuery):
 			parse_mode='html',
 		)
 
+		# Добавляем товар в бд
 		database.edit.add_product(
 			chat_id=call.message.chat.id,
 			product_item=product_item,
@@ -35,6 +43,7 @@ def add_product(call: telebot.types.CallbackQuery):
 			price=get_price(product_data.get('sizes'), size_name)
 		)
 
+		# Информируем пользователя о добавлении товара в бд
 		bot.reply_to(
 			call.message,
 			messages.dialogue.product_added_text(call.message),

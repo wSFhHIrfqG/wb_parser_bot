@@ -5,8 +5,15 @@ from . import exceptions
 
 
 class WBProduct:
+	"""
+	Товар Wildberries.
+	"""
 
 	def __init__(self, product_item: int):
+		"""
+		:param product_item: Артикул товара
+		:type product_item: int
+		"""
 		if not isinstance(product_item, int):
 			raise TypeError('product item must be int, not %s', type(product_item).__name__)
 		self.product_item = product_item
@@ -38,6 +45,12 @@ class WBProduct:
 		return requests.get('https://card.wb.ru/cards/v2/detail', params=params, headers=headers)
 
 	def product_data(self) -> dict | None:
+		"""
+		Получить данные товара.
+
+		:return: Данные товара, в случае, если товар найден, иначе - None
+		:rtype:  dict | None
+		"""
 		response = self._get_response()
 
 		json_data = response.json()

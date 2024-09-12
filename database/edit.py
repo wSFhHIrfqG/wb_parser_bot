@@ -1,7 +1,11 @@
 import sqlite3
 
 
-def create_table_product():
+def create_table_product() -> None:
+	"""
+	Создать таблицу product, для хранения товаров.
+	Колонки: id, id чата, артикул товара, размер, цена.
+	"""
 	connection = sqlite3.connect('bot.sql')
 	cursor = connection.cursor()
 	cursor.execute(
@@ -20,7 +24,24 @@ def create_table_product():
 	connection.close()
 
 
-def add_product(chat_id: int, product_item: int, size_name: str, price: int):
+def add_product(chat_id: int, product_item: int, size_name: str, price: int) -> None:
+	"""
+	Добавить товар в таблицу product.
+
+	:param chat_id: id чата с пользователем
+	:type chat_id: int
+
+	:param product_item: Артикул товара
+	:type product_item: int
+
+	:param size_name: Размер
+	:type size_name: str
+
+	:param price: Цена
+	:type price: int
+
+	:return: None
+	"""
 	connection = sqlite3.connect('bot.sql')
 	cursor = connection.cursor()
 	cursor.execute(
